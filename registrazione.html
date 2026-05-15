@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrati</title>
+    <link rel="stylesheet" href="styleSignIn.css">
+</head>
+<body>
+    
+    <div>
+        <div>
+            Registrati:
+        </div>
+        <div>
+        
+            <p>Nome:</p>
+            <input type="text" id="nome" placeholder="nome">
+        </div>
+        <div>
+            <p>Cognome:</p>
+            <input type="text" id="cognome" placeholder="cognome">
+        </div>
+        <div>
+            <p>Indirizzo:</p>
+            <input type="text" id="indirizzo" placeholder="indirizzo">
+        </div>
+        <div>
+            <p>Cap:</p>
+            <input type="text" id="cap" placeholder="cap">
+        </div>
+        <div>
+            <p>Email:</p>
+            <input type="text" id="email" placeholder="email">
+
+        </div>
+
+        <div>
+            <p>Password:</p>
+            <input type="text" id="password" placeholder="password">
+        </div>
+        <div>
+            <input type="button" value="inserisci" onclick="controlla()">
+            <p id="error"></p>
+        </div>
+    </div>
+
+</body>
+
+<script>
+    function controlla(){
+        let flag = false;
+        let flagNome = false;
+        let flagCognome = false;
+        let flagIndirizzo = false;
+        let flagCap = false;
+        let flagEmail = false;
+        let flagPsw = false;
+
+        let nomeTest = document.getElementById("nome").value;
+        const nomeRegex = /^[A-Za-zÀ-ÖØ-öø-ÿ' -]{2,50}$/;
+        if(nomeRegex.test(nomeTest) == false){
+           flag = true;
+           flagNome = true;
+        }
+
+        let cognomeTest = document.getElementById("cognome").value;
+        const cognomeRegex = /^[A-Za-zÀ-ÖØ-öø-ÿ]+(?:[ '-][A-Za-zÀ-ÖØ-öø-ÿ]+)*$/;
+        if(cognomeRegex.test(cognomeTest) == false){
+            flag = true;
+            flagCognome = true;
+        }
+
+        let indirizzoTest = document.getElementById("indirizzo").value;
+        const indirizzoRegex = /^[A-Za-zÀ-ÖØ-öø-ÿ0-9\s.,'\/-]{5,100}$/;
+        if(indirizzoRegex.test(indirizzoTest) == false){
+            flag = true;
+            flagIndirizzo = true;
+        }
+
+        let capTest = document.getElementById("cap").value;
+        const capRegex = /^\d{5}$/;
+        if(capRegex.test(capTest) == false){
+            flag = true;
+            flagCap = true;
+        }
+
+        let emailTest = document.getElementById("email").value;
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if(emailRegex.test(emailTest) == false){
+          flag = true;
+          flagEmail = true;
+        }
+
+        let pswTest = document.getElementById("password").value;
+        const pswRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+        if (pswRegex.test(pswTest) == false){
+            flag = true;
+            flagPsw = true;
+        }
+
+        if(flag == true){
+            let campi = "";
+
+            if (flagNome){
+                campi = campi + ", nome";
+            }
+            if (flagCognome){
+                campi = campi + ", cognome";
+            }
+            if(flagIndirizzo){
+                campi = campi + ", indirizzo";
+            }
+            if(flagCap){
+                campi = campi + ", cap";
+            }
+            if(flagEmail){
+                campi = campi + ", email";
+            }
+            if(flagPsw){
+                campi = campi + ", password";
+            }
+
+            document.getElementById("error").innerHTML ="Errore, ricontrollare i campi" + campi;
+
+        } else {
+            const errorEl = document.getElementById("error");
+            errorEl.innerHTML = "Registrazione Completata";
+            errorEl.style.color = "green";
+
+            uploadToDB();
+
+            setTimeout(() => {
+                window.location.href = "index.html";
+            }, 2000);
+        }
+
+        function uploadToDB(){
+            
+            let ele = JSON.parse(localStorage.getItem("elenco"));
+            ele = [];
+
+            const form = {
+                nome : document.getElementById("nome").value,
+                cognome : document.getElementById("cognome").value,
+                indirizzo: document.getElementById("indirizzo").value,
+                cap: document.getElementById("cap").value,
+                email: document.getElementById("email").value,
+                psw: document.getElementById("password").value
+            };
+
+            if (localStorage.getItem("elenco")) {
+                localStorage.removeItem("elenco"); 
+                ele = [];                           
+            }
+
+            ele.push(form);
+
+            localStorage.setItem("elenco", JSON.stringify(ele));
+        }
+
+}
+</script>
+
+</html>
