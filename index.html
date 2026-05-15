@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-commerce</title>
+    <link rel="shortcut icon" href="logoEcommerceMusicale.png" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body onload="accountMenu(), oggettiInCarrello(eleP)">
+
+    <!-- HEADER -->
+    <div class="header">
+        <div class="logoTitolo">
+           <img src="logoEcommerceMusicale.png" alt="logo" class="logo">
+          <h1>Ecommerce Musicale</h1>
+        </div>
+
+        <div class="carrelloIntestazione">
+          <p>Carrello</p>
+          <p>(</p>
+          <p id="nOggettiCarrello"></p>
+          <p>)</p>
+          <p>:</p>
+          <p id="costoCarrello"></p>
+          <p>€</p>
+        </div>
+    </div>
+
+    <!-- NAVBAR -->
+    <div class="navbar">
+        <a href="index.html">Home</a>
+        <a href="carrello.html">Carrello</a>
+        <span id="accountId">
+            <a href="registrazione.html">Registrati</a>
+        </span>
+    </div>
+
+    <!-- PRODOTTI -->
+    <div id="divProdotti" class="prodotti"></div>
+
+
+    <!--Footer con contatti-->
+
+
+    <hr>
+
+    <div>
+        
+    </div>
+</body>
+
+<script>
+
+    let eleP = JSON.parse(localStorage.getItem("elencoProdotti")) || [];
+
+    function oggettiInCarrello(eleP){
+        let nCarrello = eleP.length;
+        if(nCarrello == 0){
+            document.getElementById("nOggettiCarrello").innerHTML = "0";
+        } else{
+            document.getElementById("nOggettiCarrello").innerHTML = nCarrello;
+        }
+    }
+
+    function accountMenu(){
+        if (localStorage.getItem("elenco")){
+            let account = '<a href="account.html">Account</a>';
+            document.getElementById("accountId").innerHTML = account;
+        }
+    }
+
+    let prodotti = document.getElementById("divProdotti")
+    window.addEventListener("load", async function () {
+    const response = await fetch('csv1.csv');
+    const blob = await response.blob();
+
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      const testo = e.target.result;
+      const dati = parseCSV(testo);
+    };
+    reader.readAsText(blob);
+  });
+
+  function parseCSV(testo) {
+    const righe = testo.trim().split("\n");
+    
+    for (var i = 1; i < righe.length; i++) { 
+        const col = righe[i].split(",");
+
+        const immagine    = col[4]?.trim();
+        const prezzo      = col[5]?.trim();
+        const marca       = col[2]?.trim();
+        const nome        = col[1]?.trim();
+        const dimensioni  = col[6]?.trim();
+        const taglia      = col[7]?.trim();
+        const spedizione  = col[8]?.trim();
+        const descrizione = col[3]?.trim();
+
+        prodotti.innerHTML += `
+            <div>
+                <img src="${immagine}" alt="${nome}">
+                <p style="text-align: center;">${prezzo}</p>
+                <div class="titolo">
+                    <p>${marca} </p>
+                    <p>${nome}</p>
+                </div>
+                <p>${descrizione}</p>
+                <div class="riga">
+                    <p>Dimensioni: </p>
+                    <p>${dimensioni}</p>
+                </div>
+                <div class="riga">
+                    <p>Taglia: </p>
+                    <p>${taglia}</p>
+                </div>
+                <div class="riga">
+                    <p>Tempo spedizione: </p>
+                    <p>${spedizione}</p>
+                </div>
+                <div>
+                    <input type="button" value="Aggiungi al Carrello" 
+    onclick="aggiungiCarrello('${nome}', '${marca}', '${prezzo}', '${immagine}', this)">
+                    
+                </div>    
+            </div>
+        `;
+    }
+}
+
+function aggiungiCarrello(nome, marca, prezzo, immagine, btn) {
+    
+    const prodotto = { nome, marca, prezzo, immagine };
+    eleP.push(prodotto);
+    localStorage.setItem("elencoProdotti", JSON.stringify(eleP));
+    oggettiInCarrello(eleP);
+
+    const wrapper = btn.parentElement;
+
+    const colori = ["#3b82f6","#6366f1","#22c55e","#f59e0b","#ec4899","#fff"];
+    for (let i = 0; i < 18; i++) {
+        const p = document.createElement("span");
+        p.classList.add("particella");
+        const angle = (i / 18) * 360;
+        const dist  = 50 + Math.random() * 60;
+        const rad   = angle * Math.PI / 180;
+        p.style.setProperty("--tx", `${Math.cos(rad) * dist}px`);
+        p.style.setProperty("--ty", `${Math.sin(rad) * dist}px`);
+        p.style.background = colori[Math.floor(Math.random() * colori.length)];
+        p.style.left = "50%";
+        p.style.top  = "50%";
+        p.style.marginLeft = "-4px";
+        p.style.marginTop  = "-4px";
+        wrapper.appendChild(p);
+        setTimeout(() => p.remove(), 800);
+    }
+
+    const plus = document.createElement("span");
+    plus.classList.add("plus-float");
+    plus.textContent = "+1";
+    plus.style.left = "50%";
+    plus.style.top  = "0";
+    plus.style.transform = "translateX(-50%)";
+    wrapper.appendChild(plus);
+    setTimeout(() => plus.remove(), 1000);
+
+    const nuovoBtn = document.createElement("div");
+    nuovoBtn.classList.add("btn-aggiunto");
+    nuovoBtn.style.animation = "btn-success 0.4s ease";
+    nuovoBtn.innerHTML = `<span style="animation: checkmark 0.4s ease forwards; display:inline-block;">✅</span> Aggiunto al carrello`;
+    wrapper.replaceChild(nuovoBtn, btn);
+}
+
+
+
+</script>
+
+</html>
+
