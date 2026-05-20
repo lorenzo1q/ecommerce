@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registrati</title>
     <link rel="stylesheet" href="styleSignIn.css">
+    <link rel="shortcut icon" href="logoEcommerceMusicale.png" type="image/x-icon">
 </head>
 <body>
     
@@ -93,7 +94,7 @@
         }
 
         let pswTest = document.getElementById("password").value;
-        const pswRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+        const pswRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/; // (minimo 8 caratteri) almeno 1 lettera maiuscola almeno 1 minuscola almeno 1 numero almeno 1 simbolo
         if (pswRegex.test(pswTest) == false){
             flag = true;
             flagPsw = true;
@@ -128,6 +129,7 @@
             errorEl.innerHTML = "Registrazione Completata";
             errorEl.style.color = "green";
 
+            //Local Storage
             uploadToDB();
 
             setTimeout(() => {
