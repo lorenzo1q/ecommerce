@@ -1,0 +1,448 @@
+/* ─────────────────────────────────────────
+   MAISON HORLOGÈRE — style.css
+   Luxury Watch E-Commerce
+───────────────────────────────────────── */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap');
+
+/* ── VARIABLES ── */
+:root {
+    --gold:        #C9A84C;
+    --gold-light:  #E8C97A;
+    --gold-dark:   #8B6914;
+    --black:       #0A0A0A;
+    --deep:        #111111;
+    --surface:     #1A1A1A;
+    --surface-2:   #222222;
+    --border:      rgba(201,168,76,0.25);
+    --border-soft: rgba(255,255,255,0.06);
+    --text-main:   #F0EAD6;
+    --text-muted:  #8A8070;
+    --text-dim:    #5A5248;
+    --white:       #FFFFFF;
+
+    --font-serif: 'Cormorant Garamond', Georgia, serif;
+    --font-sans:  'Montserrat', sans-serif;
+
+    --radius-sm:  4px;
+    --radius-md:  8px;
+    --radius-lg:  14px;
+    --transition: 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* ── RESET ── */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    background-color: var(--black);
+    background-image:
+        radial-gradient(ellipse 80% 50% at 50% -10%, rgba(201,168,76,0.08) 0%, transparent 60%),
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 79px,
+            rgba(255,255,255,0.015) 79px,
+            rgba(255,255,255,0.015) 80px
+        ),
+        repeating-linear-gradient(
+            90deg,
+            transparent,
+            transparent 79px,
+            rgba(255,255,255,0.015) 79px,
+            rgba(255,255,255,0.015) 80px
+        );
+    color: var(--text-main);
+    font-family: var(--font-sans);
+    padding: 0 40px 60px;
+}
+
+/* ── HEADER ── */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 28px 0;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 10px;
+    animation: slideDown 0.8s ease forwards;
+}
+
+.logoTitolo {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.logo {
+    width: 56px;
+    height: 56px;
+    object-fit: contain;
+    filter: brightness(0) saturate(100%) invert(77%) sepia(29%) saturate(700%) hue-rotate(5deg) brightness(95%);
+}
+
+.logoTitolo h1 {
+    font-family: var(--font-serif);
+    font-size: 28px;
+    font-weight: 300;
+    letter-spacing: 0.18em;
+    color: var(--text-main);
+    text-transform: uppercase;
+}
+
+.logoTitolo h1 span {
+    color: var(--gold);
+}
+
+.carrelloIntestazione {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-sans);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+    padding: 10px 18px;
+    border-radius: var(--radius-sm);
+    transition: var(--transition);
+    cursor: default;
+}
+
+.carrelloIntestazione:hover {
+    border-color: var(--gold);
+    color: var(--gold-light);
+}
+
+.carrelloIntestazione p {
+    margin: 0;
+}
+
+#nOggettiCarrello {
+    color: var(--gold);
+    font-weight: 600;
+}
+
+#costoCarrello {
+    color: var(--gold);
+    font-weight: 600;
+}
+
+/* ── NAVBAR ── */
+.navbar {
+    display: flex;
+    gap: 40px;
+    padding: 22px 0;
+    margin-bottom: 50px;
+    border-bottom: 1px solid var(--border-soft);
+    animation: slideDown 0.9s ease forwards;
+}
+
+.navbar a {
+    font-family: var(--font-sans);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--text-muted);
+    transition: var(--transition);
+    position: relative;
+    padding-bottom: 4px;
+}
+
+.navbar a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--gold);
+    transition: width var(--transition);
+}
+
+.navbar a:hover {
+    color: var(--gold-light);
+}
+
+.navbar a:hover::after {
+    width: 100%;
+}
+
+/* ── PRODOTTI GRID ── */
+.prodotti {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2px;
+}
+
+/* ── CARD PRODOTTO ── */
+.prodotti > div {
+    padding: 32px 28px 28px;
+    background: var(--deep);
+    border: 1px solid var(--border-soft);
+    transition: var(--transition);
+    animation: fadeUp 0.8s ease both;
+    position: relative;
+    overflow: hidden;
+}
+
+.prodotti > div::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    opacity: 0;
+    transition: opacity var(--transition);
+}
+
+.prodotti > div:hover {
+    background: var(--surface);
+    border-color: var(--border);
+    transform: translateY(-3px);
+}
+
+.prodotti > div:hover::before {
+    opacity: 1;
+}
+
+/* IMMAGINE */
+.prodotti img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    margin-bottom: 20px;
+    filter: grayscale(15%);
+    transition: filter var(--transition);
+}
+
+.prodotti > div:hover img {
+    filter: grayscale(0%);
+}
+
+/* TESTI PRODOTTO */
+.prodotti p {
+    color: var(--text-muted);
+    font-size: 12px;
+    font-family: var(--font-sans);
+    letter-spacing: 0.05em;
+    line-height: 1.6;
+}
+
+/* PREZZO */
+.prodotti > div > p:first-of-type {
+    font-family: var(--font-serif);
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--gold);
+    letter-spacing: 0.05em;
+    margin-bottom: 6px;
+}
+
+/* MARCA + NOME */
+.titolo {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-bottom: 10px;
+}
+
+.titolo p:first-child {
+    font-family: var(--font-sans);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+}
+
+.titolo p:last-child {
+    font-family: var(--font-serif);
+    font-size: 18px;
+    font-weight: 300;
+    color: var(--text-main);
+    letter-spacing: 0.05em;
+}
+
+/* RIGA INFO */
+.riga {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 0;
+    border-bottom: 1px solid var(--border-soft);
+}
+
+.riga p {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--text-dim);
+}
+
+.riga p:last-child {
+    color: var(--text-muted);
+    text-align: right;
+}
+
+/* DIV SEZIONI CARD */
+.prodotti > div > div {
+    margin-top: 6px;
+}
+
+/* ── BOTTONE CTA ── */
+input[type="button"] {
+    width: 100%;
+    padding: 14px;
+    border-radius: 0;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    font-family: var(--font-sans);
+    font-weight: 500;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    background: transparent;
+    color: var(--gold-light);
+    transition: var(--transition);
+    margin-top: 4px;
+}
+
+input[type="button"]:hover {
+    background: var(--gold);
+    color: var(--black);
+    border-color: var(--gold);
+    transform: none;
+    box-shadow: 0 0 30px rgba(201,168,76,0.2);
+}
+
+input[type="button"]:active {
+    transform: scale(0.98);
+}
+
+/* ── HR ── */
+hr {
+    border: none;
+    height: 1px;
+    background: var(--border-soft);
+    margin: 50px 0;
+}
+
+/* ── ANIMAZIONI ── */
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* stagger */
+.prodotti > div:nth-child(1)  { animation-delay: 0.05s; }
+.prodotti > div:nth-child(2)  { animation-delay: 0.10s; }
+.prodotti > div:nth-child(3)  { animation-delay: 0.15s; }
+.prodotti > div:nth-child(4)  { animation-delay: 0.20s; }
+.prodotti > div:nth-child(5)  { animation-delay: 0.25s; }
+.prodotti > div:nth-child(6)  { animation-delay: 0.30s; }
+.prodotti > div:nth-child(7)  { animation-delay: 0.35s; }
+.prodotti > div:nth-child(8)  { animation-delay: 0.40s; }
+
+/* ── BOTTONE AGGIUNTO ── */
+.btn-aggiunto {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid rgba(201,168,76,0.5);
+    cursor: default;
+    font-family: var(--font-sans);
+    font-weight: 500;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    background: rgba(201,168,76,0.08);
+    color: var(--gold-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 4px;
+    animation: fadeIn 0.4s ease;
+}
+
+/* ── PARTICELLE ── */
+@keyframes particle-explode {
+    0%   { transform: translate(0,0) scale(1); opacity: 1; }
+    100% { transform: translate(var(--tx), var(--ty)) scale(0); opacity: 0; }
+}
+
+@keyframes plus-float {
+    0%   { opacity: 1; transform: translateY(0) scale(1); }
+    100% { opacity: 0; transform: translateY(-50px) scale(1.4); }
+}
+
+@keyframes checkmark {
+    0%   { opacity: 0; transform: scale(0) rotate(-20deg); }
+    60%  { transform: scale(1.3) rotate(5deg); opacity: 1; }
+    100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+.particella {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    pointer-events: none;
+    animation: particle-explode 0.7s ease-out forwards;
+}
+
+.plus-float {
+    position: absolute;
+    font-family: var(--font-serif);
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--gold);
+    pointer-events: none;
+    animation: plus-float 0.9s ease-out forwards;
+    text-shadow: 0 0 10px rgba(201,168,76,0.6);
+}
+
+.prodotti > div > div:last-child {
+    position: relative;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+    body { padding: 0 20px 40px; }
+
+    .header {
+        flex-direction: column;
+        gap: 16px;
+        align-items: flex-start;
+    }
+
+    .logoTitolo h1 { font-size: 20px; }
+
+    .navbar { gap: 24px; flex-wrap: wrap; }
+
+    .prodotti { grid-template-columns: 1fr; gap: 0; }
+}
