@@ -1,7 +1,5 @@
 
-
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Montserrat:wght@300;400;500;600&display=swap');
 
 :root {
     --gold:        #C9A84C;
@@ -10,59 +8,36 @@
     --black:       #0A0A0A;
     --deep:        #111111;
     --surface:     #1A1A1A;
-    --surface-2:   #222222;
     --border:      rgba(201,168,76,0.25);
     --border-soft: rgba(255,255,255,0.06);
     --text-main:   #F0EAD6;
     --text-muted:  #8A8070;
     --text-dim:    #5A5248;
-    --white:       #FFFFFF;
-
-    --font-serif: 'Cormorant Garamond', Georgia, serif;
-    --font-sans:  'Montserrat', sans-serif;
-
-    --radius-sm:  4px;
-    --radius-md:  8px;
-    --radius-lg:  14px;
-    --transition: 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --font-serif:  'Cormorant Garamond', Georgia, serif;
+    --font-sans:   'Montserrat', sans-serif;
+    --transition:  0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-/* ── RESET ── */
 *, *::before, *::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-html {
-    scroll-behavior: smooth;
-}
+html { scroll-behavior: smooth; }
 
 body {
     min-height: 100vh;
     background-color: var(--black);
     background-image:
         radial-gradient(ellipse 80% 50% at 50% -10%, rgba(201,168,76,0.08) 0%, transparent 60%),
-        repeating-linear-gradient(
-            0deg,
-            transparent,
-            transparent 79px,
-            rgba(255,255,255,0.015) 79px,
-            rgba(255,255,255,0.015) 80px
-        ),
-        repeating-linear-gradient(
-            90deg,
-            transparent,
-            transparent 79px,
-            rgba(255,255,255,0.015) 79px,
-            rgba(255,255,255,0.015) 80px
-        );
+        repeating-linear-gradient(0deg, transparent, transparent 79px, rgba(255,255,255,0.015) 79px, rgba(255,255,255,0.015) 80px),
+        repeating-linear-gradient(90deg, transparent, transparent 79px, rgba(255,255,255,0.015) 79px, rgba(255,255,255,0.015) 80px);
     color: var(--text-main);
     font-family: var(--font-sans);
     padding: 0 40px 60px;
 }
 
-/* ── HEADER ── */
 .header {
     display: flex;
     justify-content: space-between;
@@ -80,29 +55,26 @@ body {
 }
 
 .logo {
-    width: 56px;
-    height: 56px;
+    width: 52px;
+    height: 52px;
     object-fit: contain;
-    filter: brightness(0) saturate(100%) invert(77%) sepia(29%) saturate(700%) hue-rotate(5deg) brightness(95%);
 }
 
 .logoTitolo h1 {
     font-family: var(--font-serif);
-    font-size: 28px;
+    font-size: 26px;
     font-weight: 300;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.2em;
     color: var(--text-main);
     text-transform: uppercase;
 }
 
-.logoTitolo h1 span {
-    color: var(--gold);
-}
+.logoTitolo h1 span { color: var(--gold); }
 
 .carrelloIntestazione {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 5px;
     font-family: var(--font-sans);
     font-size: 11px;
     font-weight: 500;
@@ -111,7 +83,6 @@ body {
     color: var(--text-muted);
     border: 1px solid var(--border);
     padding: 10px 18px;
-    border-radius: var(--radius-sm);
     transition: var(--transition);
     cursor: default;
 }
@@ -121,21 +92,10 @@ body {
     color: var(--gold-light);
 }
 
-.carrelloIntestazione p {
-    margin: 0;
-}
+.carrelloIntestazione p { margin: 0; }
+#nOggettiCarrello { color: var(--gold); font-weight: 600; }
+#costoCarrello    { color: var(--gold); font-weight: 600; }
 
-#nOggettiCarrello {
-    color: var(--gold);
-    font-weight: 600;
-}
-
-#costoCarrello {
-    color: var(--gold);
-    font-weight: 600;
-}
-
-/* ── NAVBAR ── */
 .navbar {
     display: flex;
     gap: 40px;
@@ -161,30 +121,21 @@ body {
 .navbar a::after {
     content: '';
     position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 1px;
+    bottom: 0; left: 0;
+    width: 0; height: 1px;
     background: var(--gold);
     transition: width var(--transition);
 }
 
-.navbar a:hover {
-    color: var(--gold-light);
-}
+.navbar a:hover { color: var(--gold-light); }
+.navbar a:hover::after { width: 100%; }
 
-.navbar a:hover::after {
-    width: 100%;
-}
-
-/* ── PRODOTTI GRID ── */
 .prodotti {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 2px;
 }
 
-/* ── CARD PRODOTTO ── */
 .prodotti > div {
     padding: 32px 28px 28px;
     background: var(--deep);
@@ -198,9 +149,7 @@ body {
 .prodotti > div::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
+    top: 0; left: 0; right: 0;
     height: 1px;
     background: linear-gradient(90deg, transparent, var(--gold), transparent);
     opacity: 0;
@@ -213,11 +162,8 @@ body {
     transform: translateY(-3px);
 }
 
-.prodotti > div:hover::before {
-    opacity: 1;
-}
+.prodotti > div:hover::before { opacity: 1; }
 
-/* IMMAGINE */
 .prodotti img {
     width: 100%;
     height: 220px;
@@ -227,11 +173,8 @@ body {
     transition: filter var(--transition);
 }
 
-.prodotti > div:hover img {
-    filter: grayscale(0%);
-}
+.prodotti > div:hover img { filter: grayscale(0%); }
 
-/* TESTI PRODOTTO */
 .prodotti p {
     color: var(--text-muted);
     font-size: 12px;
@@ -240,7 +183,6 @@ body {
     line-height: 1.6;
 }
 
-/* PREZZO */
 .prodotti > div > p:first-of-type {
     font-family: var(--font-serif);
     font-size: 22px;
@@ -250,7 +192,6 @@ body {
     margin-bottom: 6px;
 }
 
-/* MARCA + NOME */
 .titolo {
     display: flex;
     flex-direction: column;
@@ -275,7 +216,6 @@ body {
     letter-spacing: 0.05em;
 }
 
-/* RIGA INFO */
 .riga {
     display: flex;
     justify-content: space-between;
@@ -296,12 +236,8 @@ body {
     text-align: right;
 }
 
-/* DIV SEZIONI CARD */
-.prodotti > div > div {
-    margin-top: 6px;
-}
+.prodotti > div > div { margin-top: 6px; }
 
-/* ── BOTTONE CTA ── */
 input[type="button"] {
     width: 100%;
     padding: 14px;
@@ -323,15 +259,11 @@ input[type="button"]:hover {
     background: var(--gold);
     color: var(--black);
     border-color: var(--gold);
-    transform: none;
     box-shadow: 0 0 30px rgba(201,168,76,0.2);
 }
 
-input[type="button"]:active {
-    transform: scale(0.98);
-}
+input[type="button"]:active { transform: scale(0.98); }
 
-/* ── HR ── */
 hr {
     border: none;
     height: 1px;
@@ -339,7 +271,6 @@ hr {
     margin: 50px 0;
 }
 
-/* ── ANIMAZIONI ── */
 @keyframes slideDown {
     from { opacity: 0; transform: translateY(-20px); }
     to   { opacity: 1; transform: translateY(0); }
@@ -350,7 +281,6 @@ hr {
     to   { opacity: 1; transform: translateY(0); }
 }
 
-/* stagger */
 .prodotti > div:nth-child(1)  { animation-delay: 0.05s; }
 .prodotti > div:nth-child(2)  { animation-delay: 0.10s; }
 .prodotti > div:nth-child(3)  { animation-delay: 0.15s; }
@@ -360,7 +290,6 @@ hr {
 .prodotti > div:nth-child(7)  { animation-delay: 0.35s; }
 .prodotti > div:nth-child(8)  { animation-delay: 0.40s; }
 
-/* ── BOTTONE AGGIUNTO ── */
 .btn-aggiunto {
     width: 100%;
     padding: 14px;
@@ -381,7 +310,6 @@ hr {
     animation: fadeIn 0.4s ease;
 }
 
-/* ── PARTICELLE ── */
 @keyframes particle-explode {
     0%   { transform: translate(0,0) scale(1); opacity: 1; }
     100% { transform: translate(var(--tx), var(--ty)) scale(0); opacity: 0; }
@@ -405,8 +333,7 @@ hr {
 
 .particella {
     position: absolute;
-    width: 6px;
-    height: 6px;
+    width: 6px; height: 6px;
     border-radius: 50%;
     pointer-events: none;
     animation: particle-explode 0.7s ease-out forwards;
@@ -423,23 +350,12 @@ hr {
     text-shadow: 0 0 10px rgba(201,168,76,0.6);
 }
 
-.prodotti > div > div:last-child {
-    position: relative;
-}
+.prodotti > div > div:last-child { position: relative; }
 
-/* ── RESPONSIVE ── */
 @media (max-width: 768px) {
     body { padding: 0 20px 40px; }
-
-    .header {
-        flex-direction: column;
-        gap: 16px;
-        align-items: flex-start;
-    }
-
+    .header { flex-direction: column; gap: 16px; align-items: flex-start; }
     .logoTitolo h1 { font-size: 20px; }
-
     .navbar { gap: 24px; flex-wrap: wrap; }
-
     .prodotti { grid-template-columns: 1fr; gap: 0; }
 }
