@@ -1,0 +1,252 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Montserrat:wght@300;400;500;600&display=swap');
+
+:root {
+    --gold:        #C9A84C;
+    --gold-light:  #E8C97A;
+    --gold-dark:   #8B6914;
+    --black:       #0A0A0A;
+    --deep:        #111111;
+    --surface:     #1A1A1A;
+    --border:      rgba(201,168,76,0.25);
+    --border-soft: rgba(255,255,255,0.06);
+    --text-main:   #F0EAD6;
+    --text-muted:  #8A8070;
+    --text-dim:    #5A5248;
+    --font-serif:  'Cormorant Garamond', Georgia, serif;
+    --font-sans:   'Montserrat', sans-serif;
+    --transition:  0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    background-color: var(--black);
+    background-image: radial-gradient(ellipse 80% 50% at 50% -10%, rgba(201,168,76,0.07) 0%, transparent 60%);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 60px 20px;
+    font-family: var(--font-sans);
+    color: var(--text-main);
+}
+
+body > div {
+    width: 100%;
+    max-width: 560px;
+    animation: fadeUp 0.7s ease forwards;
+}
+
+h1 {
+    font-family: var(--font-serif);
+    font-size: 36px;
+    font-weight: 300;
+    letter-spacing: 0.12em;
+    color: var(--text-main);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+}
+
+h1::before {
+    content: 'Horlogerie Prestige';
+    display: block;
+    font-family: var(--font-sans);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+}
+
+hr {
+    border: none;
+    height: 1px;
+    background: linear-gradient(90deg, var(--gold), transparent);
+    margin: 20px 0 32px;
+}
+
+#layoutCarrello > div { margin-bottom: 2px; }
+
+.titolo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    background: var(--deep);
+    border: 1px solid var(--border-soft);
+    border-left: 2px solid var(--border);
+    padding: 18px 20px;
+    transition: var(--transition);
+}
+
+.titolo:hover {
+    border-left-color: var(--gold);
+    background: var(--surface);
+}
+
+.titolo p {
+    color: var(--text-muted);
+    font-size: 12px;
+    margin: 0;
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    letter-spacing: 0.05em;
+}
+
+.titolo p:nth-child(1) {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    flex: 0 0 80px;
+}
+
+.titolo p:nth-child(2) {
+    font-family: var(--font-serif);
+    font-size: 15px;
+    font-weight: 400;
+    color: var(--text-main);
+    letter-spacing: 0.05em;
+    flex: 2;
+}
+
+.titolo p:nth-child(3) {
+    font-family: var(--font-serif);
+    color: var(--gold);
+    font-weight: 400;
+    font-size: 16px;
+    flex: 0 0 auto;
+    letter-spacing: 0.05em;
+    text-align: right;
+}
+
+.titolo p:nth-child(4) {
+    font-size: 12px;
+    color: var(--text-dim);
+    flex: 0 0 28px;
+    text-align: center;
+}
+
+.titolo input[type="button"] {
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    border-radius: 0;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    flex: 0 0 28px;
+    font-family: var(--font-sans);
+    font-weight: 400;
+    font-size: 14px;
+    background: transparent;
+    color: var(--gold);
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.titolo input[type="button"]:hover {
+    background: var(--gold);
+    color: var(--black);
+    border-color: var(--gold);
+    transform: none;
+    box-shadow: none;
+}
+
+.titolo input[type="button"]:active { transform: scale(0.92); }
+
+.riga {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border-soft);
+}
+
+.riga:first-of-type { margin-top: 24px; }
+
+.riga p {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin: 0;
+}
+
+.riga p strong {
+    font-family: var(--font-serif);
+    color: var(--gold-light);
+    font-size: 22px;
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: 0.05em;
+}
+
+.bottoniFinali {
+    display: flex;
+    gap: 12px;
+    margin-top: 32px;
+}
+
+.bottoniFinali input[type="button"] {
+    flex: 1;
+    width: auto !important;
+    padding: 16px 20px;
+    border-radius: 0;
+    font-family: var(--font-sans);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.bottoniFinali input[type="button"]:first-child {
+    background: transparent !important;
+    color: var(--text-muted) !important;
+    border: 1px solid var(--border-soft) !important;
+    box-shadow: none !important;
+}
+
+.bottoniFinali input[type="button"]:first-child:hover {
+    border-color: var(--border) !important;
+    color: var(--text-main) !important;
+    transform: none;
+    box-shadow: none !important;
+}
+
+.bottoniFinali input[type="button"]:last-child {
+    background: var(--gold) !important;
+    color: var(--black) !important;
+    border: 1px solid var(--gold) !important;
+    font-weight: 600;
+}
+
+.bottoniFinali input[type="button"]:last-child:hover {
+    background: var(--gold-light) !important;
+    border-color: var(--gold-light) !important;
+    transform: none;
+    box-shadow: 0 0 30px rgba(201,168,76,0.25) !important;
+}
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 500px) {
+    body { padding: 30px 16px; }
+    h1 { font-size: 26px; }
+    .titolo { flex-wrap: wrap; gap: 8px; padding: 14px; }
+    .bottoniFinali { flex-direction: column; }
+}
