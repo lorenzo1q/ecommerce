@@ -1,47 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registrati</title>
+    <title>Registrati — Horlogerie Prestige</title>
     <link rel="stylesheet" href="styleSignIn.css">
-    <link rel="shortcut icon" href="logoEcommerceMusicale.png" type="image/x-icon">
+    <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
 </head>
 <body>
-    
+
     <div>
-        <div>
-            Registrati:
-        </div>
-        <div>
-        
-            <p>Nome:</p>
-            <input type="text" id="nome" placeholder="nome">
-        </div>
-        <div>
-            <p>Cognome:</p>
-            <input type="text" id="cognome" placeholder="cognome">
-        </div>
-        <div>
-            <p>Indirizzo:</p>
-            <input type="text" id="indirizzo" placeholder="indirizzo">
-        </div>
-        <div>
-            <p>Cap:</p>
-            <input type="text" id="cap" placeholder="cap">
-        </div>
-        <div>
-            <p>Email:</p>
-            <input type="text" id="email" placeholder="email">
-
-        </div>
+        <div>Registrati</div>
 
         <div>
-            <p>Password:</p>
-            <input type="text" id="password" placeholder="password">
+            <p>Nome</p>
+            <input type="text" id="nome" placeholder="Mario">
         </div>
         <div>
-            <input type="button" value="inserisci" onclick="controlla()">
+            <p>Cognome</p>
+            <input type="text" id="cognome" placeholder="Rossi">
+        </div>
+        <div>
+            <p>Indirizzo</p>
+            <input type="text" id="indirizzo" placeholder="Via Roma 1, Milano">
+        </div>
+        <div>
+            <p>CAP</p>
+            <input type="text" id="cap" placeholder="20100">
+        </div>
+        <div>
+            <p>Email</p>
+            <input type="text" id="email" placeholder="mario@esempio.com">
+        </div>
+        <div>
+            <p>Password</p>
+            <input type="password" id="password" placeholder="Min. 8 caratteri, A-z, 0-9, simbolo">
+        </div>
+        <div>
+            <input type="button" value="Conferma Registrazione" onclick="controlla()">
             <p id="error"></p>
         </div>
     </div>
@@ -49,119 +45,69 @@
 </body>
 
 <script>
-    function controlla(){
-        let flag = false;
-        let flagNome = false;
-        let flagCognome = false;
+    function controlla() {
+        let flag          = false;
+        let flagNome      = false;
+        let flagCognome   = false;
         let flagIndirizzo = false;
-        let flagCap = false;
-        let flagEmail = false;
-        let flagPsw = false;
+        let flagCap       = false;
+        let flagEmail     = false;
+        let flagPsw       = false;
 
-        let nomeTest = document.getElementById("nome").value;
-        const nomeRegex = /^[A-Za-zÀ-ÖØ-öø-ÿ' -]{2,50}$/;
-        if(nomeRegex.test(nomeTest) == false){
-           flag = true;
-           flagNome = true;
-        }
+        const nomeTest     = document.getElementById("nome").value;
+        const nomeRegex    = /^[A-Za-zÀ-ÖØ-öø-ÿ' -]{2,50}$/;
+        if (!nomeRegex.test(nomeTest))         { flag = true; flagNome = true; }
 
-        let cognomeTest = document.getElementById("cognome").value;
+        const cognomeTest  = document.getElementById("cognome").value;
         const cognomeRegex = /^[A-Za-zÀ-ÖØ-öø-ÿ]+(?:[ '-][A-Za-zÀ-ÖØ-öø-ÿ]+)*$/;
-        if(cognomeRegex.test(cognomeTest) == false){
-            flag = true;
-            flagCognome = true;
-        }
+        if (!cognomeRegex.test(cognomeTest))   { flag = true; flagCognome = true; }
 
-        let indirizzoTest = document.getElementById("indirizzo").value;
+        const indirizzoTest  = document.getElementById("indirizzo").value;
         const indirizzoRegex = /^[A-Za-zÀ-ÖØ-öø-ÿ0-9\s.,'\/-]{5,100}$/;
-        if(indirizzoRegex.test(indirizzoTest) == false){
-            flag = true;
-            flagIndirizzo = true;
-        }
+        if (!indirizzoRegex.test(indirizzoTest)){ flag = true; flagIndirizzo = true; }
 
-        let capTest = document.getElementById("cap").value;
+        const capTest  = document.getElementById("cap").value;
         const capRegex = /^\d{5}$/;
-        if(capRegex.test(capTest) == false){
-            flag = true;
-            flagCap = true;
-        }
+        if (!capRegex.test(capTest))           { flag = true; flagCap = true; }
 
-        let emailTest = document.getElementById("email").value;
+        const emailTest  = document.getElementById("email").value;
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if(emailRegex.test(emailTest) == false){
-          flag = true;
-          flagEmail = true;
-        }
+        if (!emailRegex.test(emailTest))       { flag = true; flagEmail = true; }
 
-        let pswTest = document.getElementById("password").value;
-        const pswRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/; // (minimo 8 caratteri) almeno 1 lettera maiuscola almeno 1 minuscola almeno 1 numero almeno 1 simbolo
-        if (pswRegex.test(pswTest) == false){
-            flag = true;
-            flagPsw = true;
-        }
+        const pswTest  = document.getElementById("password").value;
+        const pswRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+        if (!pswRegex.test(pswTest))           { flag = true; flagPsw = true; }
 
-        if(flag == true){
+        if (flag) {
             let campi = "";
-
-            if (flagNome){
-                campi = campi + ", nome";
-            }
-            if (flagCognome){
-                campi = campi + ", cognome";
-            }
-            if(flagIndirizzo){
-                campi = campi + ", indirizzo";
-            }
-            if(flagCap){
-                campi = campi + ", cap";
-            }
-            if(flagEmail){
-                campi = campi + ", email";
-            }
-            if(flagPsw){
-                campi = campi + ", password";
-            }
-
-            document.getElementById("error").innerHTML ="Errore, ricontrollare i campi" + campi;
-
+            if (flagNome)      campi += ", nome";
+            if (flagCognome)   campi += ", cognome";
+            if (flagIndirizzo) campi += ", indirizzo";
+            if (flagCap)       campi += ", CAP";
+            if (flagEmail)     campi += ", email";
+            if (flagPsw)       campi += ", password (min. 8 car., maiuscola, numero, simbolo)";
+            document.getElementById("error").innerHTML = "Campi non validi:" + campi;
         } else {
             const errorEl = document.getElementById("error");
-            errorEl.innerHTML = "Registrazione Completata";
-            errorEl.style.color = "green";
-
-            //Local Storage
+            errorEl.innerHTML = "Registrazione completata";
+            errorEl.style.color = "#C9A84C";
             uploadToDB();
-
-            setTimeout(() => {
-                window.location.href = "index.html";
-            }, 2000);
+            setTimeout(() => { window.location.href = "index.html"; }, 2000);
         }
 
-        function uploadToDB(){
-            
-            let ele = JSON.parse(localStorage.getItem("elenco"));
-            ele = [];
-
+        function uploadToDB() {
             const form = {
-                nome : document.getElementById("nome").value,
-                cognome : document.getElementById("cognome").value,
+                nome:      document.getElementById("nome").value,
+                cognome:   document.getElementById("cognome").value,
                 indirizzo: document.getElementById("indirizzo").value,
-                cap: document.getElementById("cap").value,
-                email: document.getElementById("email").value,
-                psw: document.getElementById("password").value
+                cap:       document.getElementById("cap").value,
+                email:     document.getElementById("email").value,
+                psw:       document.getElementById("password").value
             };
-
-            if (localStorage.getItem("elenco")) {
-                localStorage.removeItem("elenco"); 
-                ele = [];                           
-            }
-
-            ele.push(form);
-
-            localStorage.setItem("elenco", JSON.stringify(ele));
+            localStorage.removeItem("elenco");
+            localStorage.setItem("elenco", JSON.stringify([form]));
         }
-
-}
+    }
 </script>
 
 </html>
