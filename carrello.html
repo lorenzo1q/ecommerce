@@ -1,138 +1,138 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carrello</title>
+    <title>Carrello — Horlogerie Prestige</title>
     <link rel="stylesheet" href="styleCarrello.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <link rel="shortcut icon" href="logoEcommerceMusicale.png" type="image/x-icon">
-    
+    <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
 </head>
-<body onload=" mostraCarrello(eleP)" >
-    
+<body onload="mostraCarrello(eleP)">
+
     <div>
-        <h1>
-            Carrello:
-        </h1>
-
+        <h1>Carrello</h1>
         <hr>
-
-        <div id="layoutCarrello">
-        </div>
-        <div class = "bottoniFinali">
-            <input type="button" value="Torna alla Home" onclick="window.location.href='index.html'">
+        <div id="layoutCarrello"></div>
+        <div class="bottoniFinali">
+            <input type="button" value="Torna alla Collezione" onclick="window.location.href='index.html'">
             <input type="button" value="Paga e Ricevuta" onclick="ricevuta()">
-        </div> 
+        </div>
     </div>
 
 </body>
 
 <script>
-    let eleP = JSON.parse(localStorage.getItem("elencoProdotti" )) || [];
+    let eleP = JSON.parse(localStorage.getItem("elencoProdotti")) || [];
 
     function mostraCarrello(eleP) {
-    let elencoCarrello = document.getElementById("layoutCarrello");
-    elencoCarrello.innerHTML = "";
-    let totale = 0;
-    let totaleArticoli = 0;
+        let elencoCarrello = document.getElementById("layoutCarrello");
+        elencoCarrello.innerHTML = "";
+        let totale = 0;
+        let totaleArticoli = 0;
 
-    for (let i = 0; i < eleP.length; i++) {
-        const prezzo   = parseInt(eleP[i].prezzo);
-        const marca    = eleP[i].marca;
-        const nome     = eleP[i].nome;
-        const immagine = eleP[i].immagine;
+        for (let i = 0; i < eleP.length; i++) {
+            const prezzo   = parseInt(eleP[i].prezzo);
+            const marca    = eleP[i].marca;
+            const nome     = eleP[i].nome;
 
-        if (!eleP[i].quantita) eleP[i].quantita = 1;  // fix xundefined
+            if (!eleP[i].quantita) eleP[i].quantita = 1;
+            const quantita = eleP[i].quantita;
+            totale         += prezzo * quantita;
+            totaleArticoli += quantita;
 
-        const quantita = eleP[i].quantita;
-        totale += prezzo * quantita;           // prezzo × quantità
-        totaleArticoli += quantita;            // somma tutte le quantità
+            elencoCarrello.innerHTML += `
+                <div>
+                    <div class="titolo">
+                        <p>${marca}</p>
+                        <p>${nome}</p>
+                        <p>${prezzo}€</p>
+                        <p>×${quantita}</p>
+                        <input type="button" value="+" onclick="aggiungiProdotto(${i})">
+                        <input type="button" value="−" onclick="rimuoviProdotto(${i})">
+                    </div>
+                </div>
+            `;
+        }
 
         elencoCarrello.innerHTML += `
-            <div>
-                <div class="titolo">
-                    <p>${marca}</p>
-                    <p>${nome}</p>
-                    <p>${prezzo}€</p>
-                    <p>x${quantita}</p>
-                    <input type="button" value="+" onclick="aggiungiProdotto(${i})">
-                    <input type="button" value="-" onclick="rimuoviProdotto(${i})">
-                </div>
+            <div class="riga">
+                <p>Articoli totali</p>
+                <p>${totaleArticoli}</p>
+            </div>
+            <div class="riga">
+                <p>Totale</p>
+                <p><strong>${totale}€</strong></p>
             </div>
         `;
     }
 
-    elencoCarrello.innerHTML += `
-        <div class="riga">
-            <p>Articoli totali:</p>
-            <p>${totaleArticoli}</p>
-        </div>
-        <div class="riga">
-            <p><strong>Totale:</strong></p>
-            <p><strong>${totale}€</strong></p>
-        </div>
-    `;
-}
-
-function rimuoviProdotto(i){
-    if (eleP[i].quantita > 1) {
-        eleP[i].quantita -= 1;
-    } else {
-        eleP.splice(i, 1); // rimuove il prodotto se quantità arriva a 0
-    }
-    localStorage.setItem("elencoProdotti", JSON.stringify(eleP));
-    mostraCarrello(eleP);
-}
-
-function aggiungiProdotto(i){
-    
-    eleP[i].quantita += 1;
-    localStorage.setItem("elencoProdotti", JSON.stringify(eleP));
-    mostraCarrello(eleP);
-
-}
-
-function ricevuta(totaleArticoli) {
-    if (eleP.length === 0) {
-        alert("Carrello vuoto, non posso stampare la ricevuta");
-        return;  // esce subito
+    function rimuoviProdotto(i) {
+        if (eleP[i].quantita > 1) {
+            eleP[i].quantita -= 1;
+        } else {
+            eleP.splice(i, 1);
+        }
+        localStorage.setItem("elencoProdotti", JSON.stringify(eleP));
+        mostraCarrello(eleP);
     }
 
-    alert("Grazie per il tuo acquisto!");
-
-    const { jsPDF } = window.jspdf;
-    let doc = new jsPDF();
-
-    doc.text("RICEVUTA ACQUISTO", 10, 10);
-
-    let y = 35;
-    let totale = 0;
-
-    for (let i = 0; i < eleP.length; i++) {
-        const quantita  = eleP[i].quantita || 1;
-        const prezzo    = parseInt(eleP[i].prezzo);
-        const subtotale = prezzo * quantita;
-        totale += subtotale;
-
-        doc.text(eleP[i].marca + " " + eleP[i].nome + " - " + prezzo + " EUR x" + quantita + " = " + subtotale + " EUR", 10, y);
-        y += 10;
+    function aggiungiProdotto(i) {
+        eleP[i].quantita += 1;
+        localStorage.setItem("elencoProdotti", JSON.stringify(eleP));
+        mostraCarrello(eleP);
     }
 
-    doc.text("TOTALE: " + totale + " EUR", 10, y + 10);
-    
-    doc.save("ricevuta.pdf");
+    function ricevuta() {
+        if (eleP.length === 0) {
+            alert("Il carrello è vuoto.");
+            return;
+        }
 
-    localStorage.removeItem("elencoProdotti");
-    eleP = [];
-    mostraCarrello(eleP);
+        alert("Grazie per il tuo acquisto. La ricevuta verrà scaricata.");
 
-     setTimeout(() => {
-                window.location.href = "index.html";
-            }, 2000);
-}
-    
-    
+        const { jsPDF } = window.jspdf;
+        let doc = new jsPDF();
+
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(16);
+        doc.text("HORLOGERIE PRESTIGE — RICEVUTA ACQUISTO", 10, 18);
+
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(11);
+        doc.text("Data: " + new Date().toLocaleDateString("it-IT"), 10, 28);
+
+        let y = 44;
+        let totale = 0;
+
+        doc.setFontSize(10);
+        for (let i = 0; i < eleP.length; i++) {
+            const quantita  = eleP[i].quantita || 1;
+            const prezzo    = parseInt(eleP[i].prezzo);
+            const subtotale = prezzo * quantita;
+            totale += subtotale;
+            doc.text(
+                eleP[i].marca + " " + eleP[i].nome +
+                "  —  " + prezzo + " EUR × " + quantita +
+                " = " + subtotale + " EUR",
+                10, y
+            );
+            y += 10;
+        }
+
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(12);
+        doc.text("TOTALE: " + totale + " EUR", 10, y + 10);
+        doc.save("ricevuta_horlogerie_prestige.pdf");
+
+        localStorage.removeItem("elencoProdotti");
+        eleP = [];
+        mostraCarrello(eleP);
+
+        setTimeout(() => {
+            window.location.href = "index.html";
+        }, 2000);
+    }
 </script>
 
 </html>
